@@ -1,0 +1,29 @@
+services:
+  fireshare:
+    container_name: fireshare
+    hostname: fireshare.local
+    image: shaneisrael/fireshare:latest
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - ~/fireshare/data:/data
+      - ~/fireshare/processed:/processed
+      - ~/fireshare/videos:/videos
+    environment:
+      - ADMIN_USERNAME=admin
+      - ADMIN_PASSWORD=admin
+      - SECRET_KEY=replace_this_with_some_random_string
+      - MINUTES_BETWEEN_VIDEO_SCANS=5
+      - PUID=1000
+      - PGID=1000
+  nginx-proxy-manager:
+    image: jc21/nginx-proxy-manager:latest
+    restart: unless-stopped
+    ports:
+      - "80:80" # Public HTTP Port
+      - "443:443" # Public HTTPS Port
+      - "81:81" # Admin Web Port
+    volumes:
+      - ./data:/data
+      - ./letsencrypt:/etc/letsencrypt
