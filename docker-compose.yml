@@ -6,6 +6,8 @@ services:
     container_name: fireshare
     hostname: "fireshare.local"
     restart: unless-stopped
+    networks:
+      - dockernet
     ports:
       - "8080:80"
     volumes:
@@ -26,6 +28,8 @@ services:
     image: jc21/nginx-proxy-manager:latest
     container_name: nginx-proxy-manager
     restart: unless-stopped
+    networks:
+      - dockernet
     ports:
       - "80:80" # Public HTTP Port
       - "443:443" # Public HTTPS Port
@@ -33,3 +37,5 @@ services:
     volumes:
       - ./data:/data
       - ./letsencrypt:/etc/letsencrypt
+networks:
+  dockernet:
