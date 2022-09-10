@@ -4,7 +4,7 @@ services:
   fireshare:
     image: shaneisrael/fireshare:latest
     container_name: fireshare
-    hostname: "fireshare.local"
+    hostname: fireshare.local
     restart: unless-stopped
     networks:
       - dockernet
