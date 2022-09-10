@@ -17,6 +17,8 @@ services:
       - MINUTES_BETWEEN_VIDEO_SCANS=5
       - PUID=1000
       - PGID=1000
+    depends_on:
+      - nginx-proxy-manager
   nginx-proxy-manager:
     image: jc21/nginx-proxy-manager:latest
     restart: unless-stopped
